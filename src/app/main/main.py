@@ -13,7 +13,7 @@ main.table = update.get_map()
 
 @main.route('/')
 def index():    
-    time = update.check_update_time()
+    time = update.check_update_time()    
     return render_template('main/index.html', time=time)
 
 @main.route('/result')

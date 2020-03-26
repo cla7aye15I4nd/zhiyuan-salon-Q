@@ -178,10 +178,25 @@
         
         <main role="main" class="inner cover">
           <h1 class="cover-heading"> 获取统计数据 </h1>
-          <p class="lead"> 点击下方按钮，致远沙龙统计文件将被发送到 {{ current_user.email }} </p>
+          
+          <p class="lead"> 点击下方按钮，致远沙龙统计文件将被发送到 {{ current_user.email }} </p>         
           
           <form action="/fetch", method="POST">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            
+            <div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="select_all" checked>
+                <label class="form-check-label" > 全选 </label>
+              </div>
+            {% for offset in [-5, -4, -3, -2, -1, 0, +1]: %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="year_{{ offset + 5 }}" name="year" value="{{ year + offset }}" checked>
+                <label class="form-check-label"> {{ year + offset }} </label>
+              </div>
+            {% endfor %}
+            </div>
+            
             <p class="lead">
               <button class="btn btn-lg btn-secondary"> 获取 </button> 
             </p>
@@ -205,6 +220,19 @@
   <script src="https://code.z01.com/js/jquery-3.2.1.slim.min.js"></script>
   <script src="https://code.z01.com/v4/dist/js/popper.min.js"></script>
   <script src="https://code.z01.com/v4/dist/js/bootstrap.min.js"></script>
+  <script>
+    $( document ).ready(function() {
+      $("#select_all").click(function() {
+        $("#year_0").attr("checked", this.checked);
+        $("#year_1").attr("checked", this.checked);
+        $("#year_2").attr("checked", this.checked);
+        $("#year_3").attr("checked", this.checked);
+        $("#year_4").attr("checked", this.checked);
+        $("#year_5").attr("checked", this.checked);
+        $("#year_6").attr("checked", this.checked);
+      })
+    })
+  </script>
 </body>
 
 </html>

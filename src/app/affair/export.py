@@ -12,16 +12,22 @@ def format_info(info):
     info['是否合格'] = '否'
     return info
 
-def load_info(filename, index):
+def load_info(filename, index, years):
     workbook = xlrd.open_workbook(filename)
     booksheet = workbook.sheet_by_index(index)
 
     students = []
     keys = [key for key in booksheet.row_values(0) if key]
-
+    level_id = -1
+    for i, key in enumerate(keys):
+        if key == '年级':
+            level_id = i
+    
     for row_num in range(1, booksheet.nrows):
         info = booksheet.row_values(row_num)
-        students.append(format_info(dict(zip(keys, info))))
+        year = str(int(info[level_id]))        
+        if year in years:
+            students.append(format_info(dict(zip(keys, info))))
 
     return students
 
@@ -76,12 +82,12 @@ def write_to_sheet(zhiyuan, other, worksheet, students):
     worksheet.col(3).width = 256 * 12
     worksheet.col(5).width = 256 * 30
     
-def export():
+def export(years):
     zhiyuan, other = load_salon(os.path.join('.', 'saves'))
     workbook = xlwt.Workbook(encoding = 'utf-8')
 
-    write_to_sheet(zhiyuan, other, workbook.add_sheet('理科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 1))
-    write_to_sheet(zhiyuan, other, workbook.add_sheet('工科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 2))
+    write_to_sheet(zhiyuan, other, workbook.add_sheet('理科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 1, years))
+    write_to_sheet(zhiyuan, other, workbook.add_sheet('工科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 2, years))
 
     filename = os.path.join('.', 'data', 'export.xls')
     workbook.save(filename)
