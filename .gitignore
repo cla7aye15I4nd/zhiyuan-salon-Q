@@ -136,3 +136,6 @@ src/app/users/config.py
 src/app/affair/config.py
 src/app/data
 src/app/saves
+src/saves
+src/data
+src/app/defines.py

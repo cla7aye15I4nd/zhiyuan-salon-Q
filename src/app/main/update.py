@@ -1,10 +1,11 @@
-from .config import *
 import requests
 import time
 import os
 import csv
 import re
 from html.parser import HTMLParser
+
+from ..defines import *
 
 class MyHTMLParser(HTMLParser):
     in_page_body = False

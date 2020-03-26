@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from .forms import LoginForm, RegisterForm
 from .models import db, Users
+from ..defines import names
 
 login_manager = LoginManager()
 
@@ -32,7 +33,6 @@ def login_validate():
         if user and user.check_password(password):
             login_user(user)
             return True
-    print(form.errors)
     return False
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -49,11 +49,14 @@ def login():
         else:
             return render_template('users/login.html', error=True)
 
-def register_validate():
+def register_validate():    
     form = RegisterForm()
     if form.validate_on_submit():
         email = request.form.get('email')
         password = request.form.get('password')
+
+        if email not in names:
+            return False
 
         result = Users.query.filter_by(email=email).first()
         if result is not None:

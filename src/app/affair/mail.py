@@ -1,16 +1,25 @@
 import smtplib
+import threading
 
 from email.header import Header
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-from .config import *
+from ..defines import *
 
 def send_file(receiver, name, filename):
-    content = f'{name}'
-    _send_file(sender_mail, sender_password,
-               receiver, content, mail_title, filename)
+    content = f"""
+        亲爱的 {name}:
+           您好
+           这是您的致远沙龙统计表，清查收。
+        
+        自动发送 - 来自 zhiyuan-salon-Q
+    """
+    thread = threading.Thread(target=_send_file, 
+                args=(sender_mail, sender_password,
+                        receiver, content, mail_title, filename))
+    thread.start()
 
 def _send_file(sender, password, receiver, content, title, filename):
 

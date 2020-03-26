@@ -4,7 +4,7 @@ from flask import render_template, request
 from flask_login import current_user
 
 from . import update
-from .config import *
+from ..defines import *
 
 main = Blueprint('main', __name__, template_folder='templates')
 
