@@ -89,6 +89,7 @@ def export(years):
     write_to_sheet(zhiyuan, other, workbook.add_sheet('理科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 1, years))
     write_to_sheet(zhiyuan, other, workbook.add_sheet('工科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 2, years))
 
-    filename = os.path.join('.', 'data', 'export.xls')
-    workbook.save(filename)
-    return filename
+    directory = os.path.join(os.getcwd(), 'data')
+    filename  = '致远沙龙统计.xls'
+    workbook.save(os.path.join(directory, filename))
+    return directory, filename

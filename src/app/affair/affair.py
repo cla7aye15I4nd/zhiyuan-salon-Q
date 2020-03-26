@@ -2,10 +2,9 @@ import os
 from datetime import datetime
 
 from flask import Blueprint
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, send_from_directory
 
 from flask_login import login_required, current_user
-from .mail import send_file
 from .export import export
 from ..defines import names
 
@@ -21,7 +20,5 @@ def affair():
 @login_required
 def fetch():
     years = request.form.getlist('year')
-    email = current_user.email
-    filename = export(years)
-    send_file(email, names[email], filename)
-    return render_template('affair/fetch.html')
+    directory, filename = export(years)
+    return send_from_directory(directory, filename, as_attachment=True)
