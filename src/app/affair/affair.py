@@ -1,8 +1,11 @@
+import os
+
 from flask import Blueprint
 from flask import render_template, request, redirect
 
 from flask_login import login_required, current_user
 from .mail import send_file
+from .export import export
 
 affairs = Blueprint('affairs', __name__, template_folder='templates')
 
@@ -16,5 +19,6 @@ def affair():
 @login_required
 def fetch():
     email = current_user.email
-    # send_file(email, )
+    filename = export()
+    send_file(email, '', filename)
     return render_template('affair/fetch.html')

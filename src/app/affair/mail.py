@@ -26,7 +26,7 @@ def _send_file(sender, password, receiver, content, title, filename):
 
     file_part = MIMEApplication(read_file(filename))
     file_part.add_header('Content-Disposition',
-                         'attachment', filename=filename)
+                         'attachment', filename='致远沙龙统计表.xls')
 
     message.attach(text_part)
     message.attach(file_part)

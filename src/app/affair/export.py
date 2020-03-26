@@ -83,4 +83,6 @@ def export():
     write_to_sheet(zhiyuan, other, workbook.add_sheet('理科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 1))
     write_to_sheet(zhiyuan, other, workbook.add_sheet('工科'), load_info(os.path.join('.', 'data', 'info.xlsx'), 2))
 
-    workbook.save(os.path.join('.', 'data', 'export.xls'))
+    filename = os.path.join('.', 'data', 'export.xls')
+    workbook.save(filename)
+    return filename
