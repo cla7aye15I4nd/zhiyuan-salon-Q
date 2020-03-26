@@ -1,7 +1,3 @@
-mail_title = '致远沙龙统计文件'
-sender_mail = 'dataisland@sjtu.edu.cn'
-sender_password = 'password'
-
 names = {
     'dataisland@sjtu.edu.cn': '于峥',
     'wjj328685@sjtu.edu.cn' : '王晶晶老师',
