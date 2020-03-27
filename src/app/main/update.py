@@ -139,7 +139,7 @@ def get_map():
         stus[sid] = stu
     return stus
 
-def check_update_time():
+def check_update_time(app):
     update_time = 0.0
     with open(os.path.join(save_path, 'update_time.text'), 'r', encoding='utf8') as f:
         update_time = float(f.read())
@@ -150,10 +150,10 @@ def check_update_time():
     failed = False
     if (u_time.tm_year, u_time.tm_mon, u_time.tm_mday, u_time.tm_hour) != (n_time.tm_year, n_time.tm_mon, n_time.tm_mday, u_time.tm_hour):
         try:
-            update_records.update_text()
-            app.stus = update_records.get_map()
+            update_text()
+            app.table = get_map()
             u_time = n_time
-        except:
+        except Exception as e:            
             failed = True
     if not failed:
         ret = time_str % (u_time.tm_year, u_time.tm_mon, u_time.tm_mday, u_time.tm_hour, u_time.tm_min, u_time.tm_sec)
