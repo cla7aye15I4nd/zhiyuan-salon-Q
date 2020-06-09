@@ -3,6 +3,7 @@ import time
 import os
 import csv
 import re
+import json
 from html.parser import HTMLParser
 
 from ..defines import *
@@ -15,7 +16,7 @@ class MyHTMLParser(HTMLParser):
     lines = []
 
     def myInit(self):
-        self.in_page_body = False
+        self.in_page_body = True
         self.in_h2 = False
         self.in_p = False
         self.get_pre_h2 = False
@@ -55,6 +56,8 @@ class MyHTMLParser(HTMLParser):
             self.get_pre_h2 = False
 
 def process_html(name, html):
+    html = json.loads(html)['text']['cn_content']
+    print(html)
     parser = MyHTMLParser()
     parser.myInit()
     parser.feed(html)
@@ -71,6 +74,7 @@ def update_text():
 
     for record in salon_records:
         try:
+            print(zy_article_url + record[1])
             html = requests.get(zy_article_url + record[1]).text
             process_html(record[0], html)
         except:
