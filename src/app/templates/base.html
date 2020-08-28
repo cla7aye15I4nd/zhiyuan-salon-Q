@@ -4,9 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../../../favicon.ico">
+  
   <title> 致远沙龙查询 </title>
   <link rel="stylesheet" href="https://code.z01.com/v4/dist/css/bootstrap.min.css">
   <style>
@@ -166,36 +164,24 @@
   <div class="site-wrapper">
     <div class="site-wrapper-inner">
       <div class="cover-container">
-        <header class="masthead clearfix">
-          <div class="inner">
-            <h3 class="masthead-brand"> 致远学院 </h3>
-            <nav class="nav nav-masthead"> 
-              <a class="nav-link" href="/"> Home </a> 
-              <a class="nav-link" href="/affair"> Affair </a> 
-              <a class="nav-link" href="/logout"> Logout </a> </nav>
 
-          </div>
-        </header>
+        {% block header %}
+        {% include "header.html" %}
+        {% endblock %}
         
         <main role="main" class="inner cover">
-          <h1 class="cover-heading"> 请检查您的邮箱 </h1>
-          <p class="lead"> 文件将在大约一分钟内发送到邮箱 </p>          
+        {% block contents %}        
+        {% endblock %}
         </main>
 
-        <footer class="mastfoot">
-          <div class="inner">
-            <p>
-              Q-Zhiyuan Salon ©2020 Powerd by <a href='https://github.com/Evensgn'> Zhou Fan </a> and <a href='https://github.com/cla7aye15I4nd'> Dataisland</a>.
-            </p>
-          </div>
-        </footer>
+        {% block footer %}
+        {% include "footer.html" %}
+        {% endblock %}
 
       </div>
     </div>
   </div>
 
-
-  <!-- Bootstrap 核心 JavaScript -->
   <script src="https://code.z01.com/js/jquery-3.2.1.slim.min.js"></script>
   <script src="https://code.z01.com/v4/dist/js/popper.min.js"></script>
   <script src="https://code.z01.com/v4/dist/js/bootstrap.min.js"></script>
