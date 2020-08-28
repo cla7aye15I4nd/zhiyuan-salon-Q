@@ -3,7 +3,7 @@
 <h1 class="cover-heading"> 获取统计数据 </h1>
 <p class="lead"> 点击下方按钮，下载致远沙龙统计文件 </p>         
 
-<form action="/fetch", method="POST">
+<form action="/salon/fetch", method="POST">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
   
   <div>

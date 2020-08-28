@@ -11,7 +11,7 @@ from ..defines import names
 
 login_manager = LoginManager()
 
-users = Blueprint('users', __name__, template_folder='templates')
+users = Blueprint('users', __name__, template_folder='templates', url_prefix='/salon')
 
 @login_manager.user_loader
 def load_user(id):
@@ -21,7 +21,7 @@ def load_user(id):
 @login_required
 def logout():
     logout_user()
-    return redirect('/')
+    return redirect('/salon')
 
 def login_validate():
     form = LoginForm()
@@ -38,14 +38,14 @@ def login_validate():
 @users.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect('/')
+        return redirect('/salon')
 
     if request.method == 'GET':
         return render_template('users/login.html')
 
     if request.method == 'POST':
         if login_validate():
-            return redirect('/')
+            return redirect('/salon')
         else:
             return render_template('users/login.html', error=True)
 
@@ -74,6 +74,6 @@ def register():
         return render_template('users/register.html')
     if request.method == 'POST':
         if register_validate():
-            return redirect('/login')
+            return redirect('/salon/login')
         else:
             return render_template('users/register.html', error=True)

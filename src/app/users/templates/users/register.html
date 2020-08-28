@@ -9,7 +9,7 @@
     <p class="lead"> 输入邮箱和密码后进行注册 </p>
   {% endif %}
 
-  <form action="/register", method="POST">
+  <form action="/salon/register", method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="input-group mb-3">
         <input type="email" class="form-control" required='required' name='email' placeholder="Email">

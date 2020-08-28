@@ -10,7 +10,7 @@
     <p class="lead"> 输入邮箱和密码后登陆 </p>
   {% endif %}
 
-  <form action="/login", method="POST">
+  <form action="/salon/login", method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="input-group mb-3">
         <input type="email" class="form-control" name='email' required='required' placeholder="Email">
@@ -20,7 +20,7 @@
     </div>
     <p class="lead"> 
         <button type="submit" class="btn btn-lg btn-primary"> Sign in </button>                 
-        <a class="btn btn-lg btn-secondary" href="/register"> Register </a> 
+        <a class="btn btn-lg btn-secondary" href="/salon/register"> Register </a> 
     </p>
   </form>
 {% endblock %}

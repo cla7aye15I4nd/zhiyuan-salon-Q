@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from .export import export
 from ..defines import names
 
-affairs = Blueprint('affairs', __name__, template_folder='templates')
+affairs = Blueprint('affairs', __name__, template_folder='templates', url_prefix='/salon')
 
 
 @affairs.route('/affair')

@@ -6,7 +6,7 @@ from flask_login import current_user
 from . import update
 from ..defines import *
 
-main = Blueprint('main', __name__, template_folder='templates')
+main = Blueprint('main', __name__, template_folder='templates', url_prefix='/salon')
 
 update.update_text()
 main.table = update.get_map()
