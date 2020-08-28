@@ -3,11 +3,12 @@ names = {
     'wjj328685@sjtu.edu.cn' : '王晶晶老师',
     'xinhe@sjtu.edu.cn'     : '何欣老师',
     'qluo_zy@sjtu.edu.cn'   : '罗勤老师',
-    'wangyanzy@sjtu.edu.cn' : '汪燕老师'
+    'wangyanzy@sjtu.edu.cn' : '汪燕老师',
+    'panlinmin@ucas.ac.cn'  : '潘老师',
 }
 
 save_path = 'saves'
-zy_article_url = 'http://zhiyuan.sjtu.edu.cn/articles/'
+zy_article_url = 'https://zhiyuan.sjtu.edu.cn/api/get_singlepage_by_id/'
 
 time_str = '%04d-%02d-%02d %02d:%02d:%02d'
 
@@ -18,7 +19,7 @@ salon_records = [('2013', '2948'),
                  ('2017', '2909'),
                  ('2018', '2919'),
                  ('2019', '3368'),
-		         ('2020', '3938'),
+		         ('2020', '3756'),
                  ('other', '2397')]
 
 other_set = {'other'}
