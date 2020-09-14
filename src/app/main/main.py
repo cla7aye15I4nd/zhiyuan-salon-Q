@@ -6,8 +6,6 @@ from flask_login import current_user
 from . import update
 from ..defines import *
 
-import time
-
 main = Blueprint('main', __name__, template_folder='templates', url_prefix='/salon')
 
 update.update_text()
@@ -25,11 +23,6 @@ def result():
     if id not in main.table:
         return render_template('main/result.html', error=True)
     else:
-        with open('api.log', 'a+') as f:
-            f.write('[{}] {} {}\n'.format(
-                time.asctime(time.localtime(time.time())),
-                id, request.remote_addr))
-            
         report = main.table[id]
         report.stuid = id
         report.count_all = report.count_zy + report.count_other
