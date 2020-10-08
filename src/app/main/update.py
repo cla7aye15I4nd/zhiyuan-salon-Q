@@ -57,11 +57,11 @@ class MyHTMLParser(HTMLParser):
 
 def process_html(name, html):
     html = json.loads(html)['text']['cn_content']
-    print(html)
     parser = MyHTMLParser()
     parser.myInit()
     parser.feed(html)
     out_file = os.path.join(save_path, salon_record_file % (name))
+    print('WRITE', name, 'info to', out_file)
     with open(out_file, 'w', encoding='utf8') as f:
         f.write('\n'.join(parser.lines))
 
@@ -73,14 +73,14 @@ def update_text():
         os.makedirs(save_path) 
 
     for record in salon_records:
+        print('FETCH', record, 'info')
         try:
-            print(zy_article_url + record[1])
             html = requests.get(zy_article_url + record[1]).text
             process_html(record[0], html)
         except:
             failed = True
 
-    if not failed:
+    if not failed:        
         out_file = os.path.join(save_path, update_time_file)
         with open(out_file, 'w', encoding='utf8') as f: 
             f.write(str(update_time))
@@ -93,12 +93,13 @@ def get_map():
 
     names = [x[0] for x in salon_records]
     for name in names:
+        print('LOAD', name, 'data')
         in_file = os.path.join(save_path, salon_record_file % (name))
         sid_data[name] = []
         salons[name] = []
         with open(in_file, 'r', encoding='utf8') as f:
             for line in f.readlines():
-                s = line.replace(' ', '').replace('\n', '')
+                s = line.replace(' ', '').replace('\n', '').rstrip('、')
 
                 if re.fullmatch(sid_list_pattern, s):
                     sid_list = s.split('、')
@@ -120,6 +121,7 @@ def get_map():
 
                 elif line.strip('\n').strip(' ') != '':
                     title = line.strip('\n').strip(' ')
+                    print('  Loading salon', title)
                     salons[name].append(title)
 
     stus = {}
