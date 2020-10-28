@@ -50,9 +50,9 @@ class MyHTMLParser(HTMLParser):
             if data == '注意':
                 self.get_pre_h2 = False
             else:
-                self.lines.append(data)
+                self.lines.append(data.strip())
         elif self.get_pre_h2 and self.in_p:
-            self.lines.append(data)
+            self.lines.append(data.strip())
             self.get_pre_h2 = False
 
 def process_html(name, html):

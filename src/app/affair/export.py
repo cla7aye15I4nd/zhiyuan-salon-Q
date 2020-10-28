@@ -3,9 +3,7 @@ import xlrd
 import xlwt
 
 def format_info(info):
-    for key, val in dict(info).items():
-        if type(val) is float:
-            info[key] = int(val)
+    info['学号'] = int(info['学号'])
     info['致远沙龙汇总'] = 0
     info['相关院系汇总'] = 0
     info['总次数'] = 0
@@ -43,7 +41,7 @@ def load_salon(save_dir):
             text = f.read().splitlines()
 
         for names, people in zip(text[::2], text[1::2]):
-            for sid in people.split('、'):
+            for sid in people.strip('、').split('、'):                
                 if filename.endswith('other.text'):
                     count = 1
                     if '(' in sid:
