@@ -105,6 +105,7 @@ def get_map():
                     title = line.strip('\n').strip(' ')
                     print('  Loading salon', title)
                     salons[name].append(title)
+                    sid_data[name].append([])
                 else:
                     sid_list = s.split('、')
                     sid_data_now = []
@@ -118,10 +119,10 @@ def get_map():
                             sid_now = sid
                             count_now = 1
                         for i in range(count_now):
-                            sid_data_now.append(sid_now)
+                            sid_data[name][-1].append(sid_now)
                         if sid_now not in sid_set:
                             sid_set.add(sid_now)
-                    sid_data[name].append(sid_data_now)
+                    # sid_data[name].append(sid_data_now)
 
     stus = {}
     for sid in sid_set:            
