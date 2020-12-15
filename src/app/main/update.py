@@ -77,7 +77,8 @@ def update_text():
         try:
             html = requests.get(zy_article_url + record[1]).text
             process_html(record[0], html)
-        except:
+        except Exception as e:
+            print('[ERROR] ', e)
             failed = True
 
     if not failed:        
@@ -100,8 +101,11 @@ def get_map():
         with open(in_file, 'r', encoding='utf8') as f:
             for line in f.readlines():
                 s = line.replace(' ', '').replace('\n', '').rstrip('、')
-
-                if re.fullmatch(sid_list_pattern, s):
+                if '.' in line:
+                    title = line.strip('\n').strip(' ')
+                    print('  Loading salon', title)
+                    salons[name].append(title)
+                else:
                     sid_list = s.split('、')
                     sid_data_now = []
                     for sid in sid_list:
@@ -118,11 +122,6 @@ def get_map():
                         if sid_now not in sid_set:
                             sid_set.add(sid_now)
                     sid_data[name].append(sid_data_now)
-
-                elif line.strip('\n').strip(' ') != '':
-                    title = line.strip('\n').strip(' ')
-                    print('  Loading salon', title)
-                    salons[name].append(title)
 
     stus = {}
     for sid in sid_set:            
