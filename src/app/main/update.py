@@ -19,6 +19,7 @@ class MyHTMLParser(HTMLParser):
         self.in_page_body = True
         self.in_h2 = False
         self.in_p = False
+        self.in_span = False
         self.get_pre_h2 = False
         self.lines = []
 
@@ -31,7 +32,7 @@ class MyHTMLParser(HTMLParser):
             self.in_h2 = True
             self.get_pre_h2 = True
         elif tag == 'p':
-            self.in_p = True 
+            self.in_p = True
 
     def handle_endtag(self, tag):
         if not self.in_page_body:
@@ -42,6 +43,7 @@ class MyHTMLParser(HTMLParser):
             self.in_h2 = False
         elif tag == 'p':
             self.in_p = False
+            self.get_pre_h2 = False
 
     def handle_data(self, data):
         if not self.in_page_body:
@@ -51,10 +53,10 @@ class MyHTMLParser(HTMLParser):
                 self.get_pre_h2 = False
             else:
                 self.lines.append(data.strip())
+                self.lines.append('')
         elif self.get_pre_h2 and self.in_p:
-            self.lines.append(data.strip())
-            self.get_pre_h2 = False
-
+            self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
+            
 def process_html(name, html):
     html = json.loads(html)['text']['cn_content']
     parser = MyHTMLParser()
