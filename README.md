@@ -13,6 +13,10 @@ server {
 
         location /salon {
                  proxy_pass http://localhost:5000;
+                 access_log /var/www/salon.log;
+        }
+        location =/ {
+                 rewrite / /salon;
         }
 }
 ```
