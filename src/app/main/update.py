@@ -33,6 +33,8 @@ class MyHTMLParser(HTMLParser):
             self.get_pre_h2 = True
         elif tag == 'p':
             self.in_p = True
+        else:
+            self.get_pre_h2 = False
 
     def handle_endtag(self, tag):
         if not self.in_page_body:
@@ -49,10 +51,10 @@ class MyHTMLParser(HTMLParser):
         if not self.in_page_body:
             return
         if self.in_h2:
-            if data == '注意':
+            if '.' not in data:
                 self.get_pre_h2 = False
-            else:
-                self.lines.append(data.strip())
+            elif self.get_pre_h2:
+                self.lines.append(data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n',''))
                 self.lines.append('')
         elif self.get_pre_h2 and self.in_p:
             self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
