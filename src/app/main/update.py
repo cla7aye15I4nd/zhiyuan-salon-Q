@@ -21,6 +21,7 @@ class MyHTMLParser(HTMLParser):
         self.in_p = False
         self.in_span = False
         self.get_pre_h2 = False
+        self.failp = False
         self.lines = []
 
     def handle_starttag(self, tag, attrs):
@@ -45,7 +46,9 @@ class MyHTMLParser(HTMLParser):
             self.in_h2 = False
         elif tag == 'p':
             self.in_p = False
-            self.get_pre_h2 = False
+            if not self.failp:
+                self.get_pre_h2 = False
+            self.failp = False
 
     def handle_data(self, data):
         if not self.in_page_body:
@@ -57,7 +60,10 @@ class MyHTMLParser(HTMLParser):
                 self.lines.append(data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n',''))
                 self.lines.append('')
         elif self.get_pre_h2 and self.in_p:
-            self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
+            if '5' in data:
+                self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
+            else:
+                self.failp = True
             
 def process_html(name, html):
     html = json.loads(html)['text']['cn_content']
