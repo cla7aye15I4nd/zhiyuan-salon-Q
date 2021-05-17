@@ -21,8 +21,8 @@ class MyHTMLParser(HTMLParser):
         self.in_p = False
         self.in_span = False
         self.get_pre_h2 = False
-        self.failp = False
         self.lines = []
+        self.title = ''
 
     def handle_starttag(self, tag, attrs):
         if tag == 'div' and attrs == [('class', 'page-body')]:
@@ -30,12 +30,10 @@ class MyHTMLParser(HTMLParser):
         if not self.in_page_body:
             return
         if tag == 'h2':
+            self.title = ''
             self.in_h2 = True
-            self.get_pre_h2 = True
         elif tag == 'p':
             self.in_p = True
-        else:
-            self.get_pre_h2 = False
 
     def handle_endtag(self, tag):
         if not self.in_page_body:
@@ -44,26 +42,26 @@ class MyHTMLParser(HTMLParser):
             self.in_page_body = False
         elif tag == 'h2':
             self.in_h2 = False
+            if len(self.lines) > 0 and len(self.lines[-1]) == 0:
+                print('[DEBUG]',self.lines[-2])
+                self.lines.pop()
+                self.lines.pop()
+            if '2' in self.title and '.' in self.title:
+                self.get_pre_h2 = True
+                self.lines.append(self.title.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n',''))
+                self.lines.append('')
         elif tag == 'p':
             self.in_p = False
-            if not self.failp:
-                self.get_pre_h2 = False
-            self.failp = False
 
     def handle_data(self, data):
         if not self.in_page_body:
             return
         if self.in_h2:
-            if '.' not in data:
-                self.get_pre_h2 = False
-            elif self.get_pre_h2:
-                self.lines.append(data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n',''))
-                self.lines.append('')
-        elif self.get_pre_h2 and self.in_p:
-            if '5' in data:
-                self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
-            else:
-                self.failp = True
+            self.title += data
+        elif self.get_pre_h2 and self.in_p and '5' in data:
+            self.lines[-1] += data.strip().replace('（','(').replace('）',')').replace(' ', '').replace('\n','')
+        elif len(data.strip()) > 0:
+            print('[DEBUG]', data)
             
 def process_html(name, html):
     html = json.loads(html)['text']['cn_content']
