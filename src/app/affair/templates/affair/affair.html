@@ -11,9 +11,9 @@
       <input class="form-check-input" type="checkbox" id="select_all" checked>
       <label class="form-check-label" > 全选 </label>
     </div>
-  {% for offset in [-4, -3, -2, -1, 0]: %}
+  {% for offset in [-5, -4, -3, -2, -1, 0]: %}
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="year_{{ offset + 4 }}" name="year" value="{{ year + offset }}" checked='checked'>
+      <input class="form-check-input" type="checkbox" id="year_{{ offset + 5 }}" name="year" value="{{ year + offset }}" checked='checked'>
       <label class="form-check-label"> {{ year + offset }} </label>
     </div>
   {% endfor %}
@@ -32,6 +32,7 @@
     $("#year_2").prop("checked", this.checked);
     $("#year_3").prop("checked", this.checked);
     $("#year_4").prop("checked", this.checked);          
+    $("#year_5").prop("checked", this.checked);
   })})
 </script>
 {% endblock %}
