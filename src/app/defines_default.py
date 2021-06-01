@@ -1,10 +1,5 @@
 names = {
-    'dataisland@sjtu.edu.cn': '于峥',
-    'wjj328685@sjtu.edu.cn' : '王晶晶老师',
-    'xinhe@sjtu.edu.cn'     : '何欣老师',
-    'qluo_zy@sjtu.edu.cn'   : '罗勤老师',
-    'wangyanzy@sjtu.edu.cn' : '汪燕老师',
-    'panlinmin@ucas.ac.cn'  : '潘老师',
+    'dataisland@sjtu.edu.cn': 'me'    
 }
 
 save_path = 'saves'
