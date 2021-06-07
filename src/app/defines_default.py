@@ -1,5 +1,5 @@
 names = {
-    'dataisland@sjtu.edu.cn': 'me'    
+    'dataisland@outlook.com' : 'me',
 }
 
 save_path = 'saves'
@@ -15,7 +15,8 @@ salon_records = [('2013', '2948'),
                  ('2018', '2919'),
                  ('2019', '3368'),
 		 ('2020', '3813'),
-                 ('other', '2397')]
+                 ('2021', '3911'),
+                 ('other', '3814')]
 
 other_set = {'other'}
 
